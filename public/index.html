@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultureCraft - Celebrate Cultural Artistry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: #ab6e56;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+        font-size: 1.8rem;
+            font-weight: bold;
+            color: #d97706;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #d97706;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url("images/culturecraft_background.jpg");
+            background-size: cover;
+            background-position: center;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+            
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #d97706;
+            color: white;
+            border: 2px solid #d97706;
+        }
+
+        .btn-primary:hover {
+            background: #b45309;
+            border-color: #b45309;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #2c1810;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 60px 20px;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c1810;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Featured Artists */
+        .featured-artists {
+            background: white;
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .artist-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .artist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .artist-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #d97706;
+        }
+
+        .artist-card h3 {
+            color: #2c1810;
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+        }
+
+        .artist-card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .artist-card .btn {
+            padding: 10px 25px;
+            font-size: 0.95rem;
+            background: #2c1810;
+            color: white;
+            border: 2px solid #2c1810;
+        }
+
+        .artist-card .btn:hover {
+            background: white;
+            color: #2c1810;
+        }
+        
+        .showcase-artists {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #a0522d 0%, #d2691e 100%);
+        }
+
+        .showcase-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .showcase-artists h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .artwork-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .artwork-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .artwork-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .artwork-card:hover .artwork-image img {
+            transform: scale(1.1);
+        }
+
+        .artwork-details {
+            padding: 20px;
+        }
+
+        .artwork-details h3 {
+            font-size: 1.3rem;
+            color: #8B4513;
+            margin-bottom: 5px;
+        }
+
+        .artwork-creator {
+            color: #D2691E;
+            font-size: 0.95rem;
+        }
+
+        /* Cultural Categories */
+        .cultural-categories {
+            background: #f8f5f0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .category-card {
+            text-decoration: none;
+            color: inherit;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .category-card .category-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .category-card h3 {
+            padding: 20px;
+            background: white;
+            text-align: center;
+            color: #2c1810;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c1810;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* About Us Short Section */
+    .about-us-short {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #d2691e 0%, #cd853f 100%);
+        text-align: center;
+    }
+
+    .about-us-short .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .about-us-short h2 {
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-us-short p {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 30px;
+    }
+
+    .about-btn {
+        display: inline-block;
+        padding: 14px 35px;
+        background: white;
+        color: #8B4513;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-btn:hover {
+        background: #8B4513;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">CultureCraft</div>
+            <ul>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link nav-link-active">Shop</a></li>
+       <li> <a href="artists.html" class="nav-link">Meet the Artists</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+       <li> <a href="contact.html" class="nav-link">Contact</a></li>
+       <li> <a href="cart.html" class="nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero"  >
+        <div class="hero-content" >
+            <h1>Discover Cultural Artistry</h1>
+            <p>Connecting authentic creators with conscious collectors</p>
+            <div class="hero-buttons">
+                <a href="shop.html" class="btn btn-primary">Explore Art</a>
+                <a href="artist-signup.html" class="btn btn-secondary">Become an Artist</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="showcase-artists">
+    <div class="showcase-wrapper">
+        <h2>Featured Artists</h2>
+        <h1>hello world</h1>
+        <div id="artists-container" class="showcase-grid">
+            <div class="artwork-card">
+                <div class="artwork-image">
+                    <img src="images/azure_wave_sake_set.jpg" alt="Artist 1">
+                </div>
+                <div class="artwork-details">
+                    <h3>Abstract Dreams</h3>
+                    <p class="artwork-creator">Sarah Mitchell</p>
+                </div>
+            </div>
+
+            <div class="artwork-card">
+                <div class="artwork-image">
+                    <img src="images/gelede_festival_mask_plaque.jpg" alt="Artist 2">
+                </div>
+                <div class="artwork-details">
+                    <h3>Urban Landscapes</h3>
+                    <p class="artwork-creator">Marcus Chen</p>
+                </div>
+            </div>
+
+            <div class="artwork-card">
+                <div class="artwork-image">
+                    <img src="images/boat_panel.jpg" alt="Artist 3">
+                </div>
+                <div class="artwork-details">
+                    <h3>Nature's Palette</h3>
+                    <p class="artwork-creator">Emma Rodriguez</p>
+                </div>
+            </div>
+
+            <div class="artwork-card">
+                <div class="artwork-image">
+                    <img src="images/beaded_ifa_divination_tray.jpg" alt="Artist 4">
+                </div>
+                <div class="artwork-details">
+                    <h3>Digital Fusion</h3>
+                    <p class="artwork-creator">Alex Thompson</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+        <!-- About Us Succinct Section -->
+        <section class="about-us-short">
+            <div class="container">
+                <h2>About Our Gallery</h2>
+                <p>We showcase exceptional artworks from talented artists worldwide, connecting art lovers with unique pieces that inspire and bring beauty into everyday life.</p>
+                <a href="about.html" class="about-btn">Learn More About Us</a>
+            </div>
+        </section>
+
+    <!-- Cultural Categories Section -->
+    <section class="cultural-categories">
+        <div class="container">
+            <h2>Explore by Culture</h2>
+            <div class="categories-grid">
+                <a href="shop.html?culture=african" class="category-card">
+                    <div class="category-image">🌍</div>
+                    <h3>African</h3>
+                </a>
+                <a href="shop.html?culture=asian" class="category-card">
+                    <div class="category-image">🏯</div>
+                    <h3>Asian</h3>
+                </a>
+
+                <a href="shop.html?culture=indigenous" class="category-card">
+                    <div class="category-image">🪶</div>
+                    <h3>Indigenous</h3>
+                </a>
+                <a href="shop.html?culture=middle-eastern" class="category-card">
+                    <div class="category-image">🕌</div>
+                    <h3>Middle Eastern</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 CultureCraft by &lt;/ Tagteam &gt;</p>
+    </footer>
+
+    <!-- <script>
+        // Fetch and display featured artists from backend
+        async function loadFeaturedArtists() {
+            try {
+                const response = await fetch('/api/artists/featured');
+                const artists = await response.json();
+                
+                const container = document.getElementById('artists-container');
+                
+                if (artists.length === 0) {
+                    container.innerHTML = '<div class="loading">No featured artists yet.</div>';
+                    return;
+                }
+                
+                container.innerHTML = '';
+                
+                artists.forEach(artist => {
+                    const card = document.createElement('div');
+                    card.className = 'artist-card';
+                    card.innerHTML = `
+                        <img src="${artist.profile_image || 'https://via.placeholder.com/150'}" 
+                             alt="${artist.name}">
+                        <h3>${artist.name}</h3>
+                        <p>${artist.cultural_background}</p>
+                        <a href="artist-profile.html?id=${artist.id}" class="btn">View Profile</a>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading artists:', error);
+                const container = document.getElementById('artists-container');
+                container.innerHTML = '<div class="loading">Unable to load artists. Please try again later.</div>';
+            }
+        }
+
+        // Load artists when page loads
+        document.addEventListener('DOMContentLoaded', loadFeaturedArtists);
+    </script> -->
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - CultureCraft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-image: url("images/background3.jpg");
+        }
+
+        /* Navigation */
+        nav {
+            background: #ab6e56;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d97706;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #d97706;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-image:url("images/culturecraft_background.jpg");
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            max-width: 1200px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+            
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Form Styles */
+        .contact-form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c1810;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d97706;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .required {
+            color: #d97706;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #d97706;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #b45309;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-section {
+            
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #d97706;
+        }
+
+        .info-section h3 {
+            color: #2c1810;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .info-section p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .info-section strong {
+            color: #2c1810;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #2c1810;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .social-links a:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .team-members {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* Message Alert */
+        .form-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #059669;
+        }
+
+        .form-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #dc2626;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+       footer {
+            background: #ab6e56;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+
+            .social-links a {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">CultureCraft</div>
+            <ul>
+               <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link nav-link-active">Shop</a></li>
+       <li> <a href="artists.html" class="nav-link">Meet the Artists</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+       <li> <a href="contact.html" class="nav-link">Contact</a></li>
+       <li> <a href="cart.html" class="nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Get in Touch</h1>
+        <p>We'd love to hear from you. Send us a message!</p>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2 style="margin-bottom: 30px; color: #2c1810;">Send Us a Message</h2>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="Your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What is this regarding?">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submit-btn">Send Message</button>
+                </form>
+
+                <!-- Message Alert -->
+                <div id="form-message" class="form-message"></div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="info-section">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> info@culturecraft.com</p>
+                    <p><strong>Support:</strong> support@culturecraft.com</p>
+                    <p><strong>Response Time:</strong> Within 24-48 hours</p>
+                </div>
+
+                <div class="info-section">
+                    <h3>Our Team</h3>
+                    <div class="team-members">
+                        <p><strong>&lt;/ Tagteam &gt;</strong></p>
+                        <p>Samuel • Wilkester • Ronjan</p>
+                        <p>Fadhili • Arama</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with CultureCraft on social media</p>
+                    <div class="social-links">
+                        <a href="#" target="_blank">Instagram</a>
+                        <a href="#" target="_blank">Facebook</a>
+                        <a href="#" target="_blank">Twitter</a>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Business Hours</h3>
+                    <p><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
+                    <p><strong>Saturday:</strong> 10:00 AM - 4:00 PM</p>
+                    <p><strong>Sunday:</strong> Closed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 CultureCraft by &lt;/ Tagteam &gt;</p>
+        <p>Samuel • Wilkester • Ronjan • Fadhili • Arama</p>
+    </footer>
+
+    <script>
+        // Handle form submission
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const messageDiv = document.getElementById('form-message');
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+            
+            try {
+                // Send to backend API
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                // Show message
+                messageDiv.classList.remove('success', 'error');
+                messageDiv.classList.add('show');
+                
+                if (response.ok) {
+                    messageDiv.classList.add('success');
+                    messageDiv.textContent = '✓ Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
+                    
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+                } else {
+                    messageDiv.classList.add('error');
+                    messageDiv.textContent = '✗ ' + (result.error || 'Error sending message. Please try again.');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.classList.remove('success');
+                messageDiv.classList.add('error', 'show');
+                messageDiv.textContent = '✗ Network error. Please check your connection and try again.';
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    messageDiv.classList.remove('show');
+                }, 5000);
+            }
+        });
+
+        // Email validation
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value && !emailRegex.test(this.value)) {
+                this.style.borderColor = '#dc2626';
+            } else {
+                this.style.borderColor = '#e5e5e5';
+            }
+        });
+    </script>
+</body>
+</html>

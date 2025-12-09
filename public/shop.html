@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shop · CultureCraft Marketplace</title>
+  
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body{
+      background-image: url("images/background3.jpg");
+    }
+  </style>
+</head>
+<body>
+  <div class="app-root">
+   
+   <nav>
+        <div class="container">
+            <div class="logo">CultureCraft</div>
+            <ul>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link nav-link-active">Shop</a></li>
+       <li> <a href="artists.html" class="nav-link">Meet the Artists</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+       <li> <a href="contact.html" class="nav-link">Contact</a></li>
+       <li> <a href="cart.html" class="nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <main class="app-main">
+      <div class="page shop-page">
+        <header class="page-header" >
+          <h1>Shop collections</h1>
+          <p class="shop-intro">
+            Explore curated CultureCraft collections inspired by regions and traditions
+            around the world. Add a collection to your cart to carry its story into your home.
+          </p>
+        </header>
+
+        <section class="section">
+          <div class="card-grid">
+            
+            <article
+              class="card product-card"
+              data-id="clay-tales"
+              data-name="Clay Tales of Bengal"
+              data-price="65"
+              data-image="images/zamindar_haveli_window_frame.jpg"
+            >
+              <img
+                src="images/zamindar_haveli_window_frame.jpg"
+                alt="Terracotta window frame artwork from Clay Tales of Bengal"
+                class="product-image"
+              />
+              <span class="card-tag">Storytelling ceramics</span>
+              <p class="card-culture">Bengal, India</p>
+              <h3>Clay Tales of Bengal</h3>
+              <p class="card-description">
+                Terracotta pieces capturing village life and folklore, crafted by Ishita Basu.
+              </p>
+              
+
+              <div class="collection-actions">
+                <a href="clay_tales.html" class="btn btn-outline">
+                  View collection
+                </a>
+                
+              </div>
+            </article>
+
+            
+            <article
+              class="card product-card"
+              data-id="treasures-japan"
+              data-name="Treasures of Japan"
+              data-price="72"
+              data-image="images/ukiyoe_fan_wall_art.jpg"
+            >
+              <img
+                src="images/ukiyoe_fan_wall_art.jpg"
+                alt="Ukiyo-e inspired fan wall art"
+                class="product-image"
+              />
+              <span class="card-tag">Prints & decor</span>
+              <p class="card-culture">Kyoto & Tokyo, Japan</p>
+              <h3>Treasures of Japan</h3>
+              <p class="card-description">
+                Ukiyo-e–inspired wall art and keepsakes that honour seasonal festivals.
+              </p>
+              
+
+              <div class="collection-actions">
+                <a href="treasures_of_japan.html" class="btn btn-outline">
+                  View collection
+                </a>
+                
+              </div>
+            </article>
+
+            
+            <article
+              class="card product-card"
+              data-id="parisian-heritage"
+              data-name="Parisian Heritage Collection"
+              data-price="80"
+              data-image="images/countryside_cottage_watercolor_canvas.jpg"
+            >
+              <img
+                src="images/countryside_cottage_watercolor_canvas.jpg"
+                alt="Countryside cottage watercolor canvas"
+                class="product-image"
+              />
+              <span class="card-tag">Fine art prints</span>
+              <p class="card-culture">Paris & French countryside</p>
+              <h3>Parisian Heritage Collection</h3>
+              <p class="card-description">
+                Watercolour scenes of old stone cottages, cafés, and quiet courtyards.
+              </p>
+            
+
+              <div class="collection-actions">
+                <a href="parisian_heritage.html" class="btn btn-outline">
+                  View collection
+                </a>
+                
+              </div>
+            </article>
+
+            
+            <article
+              class="card product-card"
+              data-id="yoruba-ancestors"
+              data-name="Yoruba Patterns of the Ancestors"
+              data-price="68"
+              data-image="images/oshun_river_goddess_canvas.jpg"
+            >
+              <img
+                src="images/oshun_river_goddess_canvas.jpg"
+                alt="Oshun river goddess canvas"
+                class="product-image"
+              />
+              <span class="card-tag">Symbolic canvases</span>
+              <p class="card-culture">Yoruba, West Africa</p>
+              <h3>Yoruba Patterns of the Ancestors</h3>
+              <p class="card-description">
+                Symbol-rich canvas art honouring river goddesses and ancestral stories.
+              </p>
+              
+
+              <div class="collection-actions">
+                <a href="yoruba.html" class="btn btn-outline">
+                  View collection
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <div class="shop-footer">
+            
+          </div>
+        </section>
+      </div>
+    </main>
+
+   
+    <footer class="app-footer">
+      <p>© 2025 CultureCraft Marketplace · Celebrating culture through art.</p>
+    </footer>
+  </div>
+
+  
+  <script>
+    function getCart() {
+      const stored = localStorage.getItem("culturecraftCart");
+      return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem("culturecraftCart", JSON.stringify(cart));
+    }
+
+    function addToCart(item) {
+      const cart = getCart();
+      const existing = cart.find((entry) => entry.id === item.id);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+
+      saveCart(cart);
+      alert(item.name + " has been added to your cart.");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".add-to-cart-btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const item = {
+            id: card.dataset.id,
+            name: card.dataset.name,
+            price: parseFloat(card.dataset.price),
+            image: card.dataset.image,
+          };
+
+          addToCart(item);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

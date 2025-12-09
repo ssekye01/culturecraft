@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cart · CultureCraft Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+      body{
+       background-image: url("images/background3.jpg");
+      }
+      </style>
+</head>
+<body>
+  <div class="app-root">
+   <nav>
+        <div class="container">
+            <div class="logo">CultureCraft</div>
+            <ul>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link nav-link-active">Shop</a></li>
+       <li> <a href="artists.html" class="nav-link">Meet the Artists</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+       <li> <a href="contact.html" class="nav-link">Contact</a></li>
+       <li> <a href="cart.html" class="nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="app-main">
+      <div class="page cart-page">
+        <header class="page-header">
+          <h1>Your cart</h1>
+          <p>
+            Review the CultureCraft collections you’ve added before continuing to the
+            mock payment form. 
+          </p>
+        </header>
+
+        <section class="section">
+          <div id="cart-container"></div>
+          <div id="cart-summary" class="cart-summary"></div>
+
+          <div class="cart-actions">
+            <a href="shop.html" class="secondary-button">Continue shopping</a>
+            <!-- Change checkout.html to your real payment form file name -->
+            <a href="checkout.html" class="primary-button">Proceed to payment</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>© 2025 CultureCraft Marketplace · Celebrating culture through art.</p>
+    </footer>
+  </div>
+
+  <script>
+    function getCart() {
+      const stored = localStorage.getItem("culturecraftCart");
+      return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem("culturecraftCart", JSON.stringify(cart));
+    }
+
+    function removeItem(id) {
+      let cart = getCart();
+      cart = cart.filter((item) => item.id !== id);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartContainer = document.getElementById("cart-container");
+      const summaryEl = document.getElementById("cart-summary");
+      const cart = getCart();
+
+      if (!cart.length) {
+        cartContainer.innerHTML =
+          '<p class="cart-empty">Your cart is currently empty.</p>';
+        summaryEl.textContent = "";
+        return;
+      }
+
+      let total = 0;
+      let tableHtml = `
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Collection</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      cart.forEach((item) => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        tableHtml += `
+          <tr>
+            <td>
+              <img
+                src="${item.image}"
+                alt="${item.name}"
+                class="cart-item-image"
+              />
+            </td>
+            <td>${item.name}</td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>${item.quantity}</td>
+            <td>$${subtotal.toFixed(2)}</td>
+            <td>
+              <button
+                type="button"
+                class="cart-remove-btn"
+                data-remove-id="${item.id}"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      tableHtml += `</tbody></table>`;
+      cartContainer.innerHTML = tableHtml;
+
+      summaryEl.innerHTML = `Total: $${total.toFixed(2)}`;
+
+      document.querySelectorAll("[data-remove-id]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-remove-id");
+          removeItem(id);
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", renderCart);
+  </script>
+</body>
+</html>

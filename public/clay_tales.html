@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clay Tales of Bengal · CultureCraft Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body{
+      background-image: url("images/background3.jpg");
+    }
+  </style>
+</head>
+<body>
+  <div class="app-root">
+    <!-- ========== HEADER ========== -->
+    <nav>
+        <div class="container">
+            <div class="logo">CultureCraft</div>
+            <ul>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shop.html" class="nav-link nav-link-active">Shop</a></li>
+       <li> <a href="artists.html" class="nav-link">Meet the Artists</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+       <li> <a href="contact.html" class="nav-link">Contact</a></li>
+       <li> <a href="cart.html" class="nav-link">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+      <main class="app-main">
+      <div class="page collection-page">
+        
+        <header class="page-header">
+          <h1>Clay Tales of Bengal</h1>
+          <p class="shop-intro">
+            Hand-shaped terracotta pieces that capture the everyday poetry of village life
+            in Bengal, India. From story tiles to window frames, each work carries the
+            textures of red earth, festival rhythms, and the hands that crafted it.
+          </p>
+        </header>
+
+        
+        <section class="section">
+          <a href="shop.html" class="secondary-button">
+            ← Back to shop
+          </a>
+        </section>
+
+        
+        <section class="section">
+          <h2>Pieces in this collection</h2>
+          <p class="small-note">
+            Products are loaded from the Clay Tales collection in the database.
+            Click “Add to Cart” to include a piece in your mock order.
+          </p>
+
+          <div id="products-grid" class="card-grid">
+           
+          </div>
+        </section>
+      </div>
+    </main>
+
+    
+    <footer class="app-footer">
+      <p>© 2025 CultureCraft Marketplace · Celebrating culture through art.</p>
+    </footer>
+  </div>
+
+  
+  <script>
+   
+    function getCart() {
+      const stored = localStorage.getItem("culturecraftCart");
+      return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem("culturecraftCart", JSON.stringify(cart));
+    }
+
+    function addToCart(item) {
+      const cart = getCart();
+      const existing = cart.find((entry) => entry.id === item.id);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+
+      saveCart(cart);
+      alert(item.name + " has been added to your cart.");
+    }
+
+    async function loadProducts() {
+      try {
+        const res = await fetch("/products/clay-tales");
+        const products = await res.json();
+
+        const grid = document.getElementById("products-grid");
+        grid.innerHTML = "";
+
+        products.forEach((p) => {
+          // Create the card
+          const card = document.createElement("article");
+          
+          card.className = "card product-card collection-card";
+
+          
+          const id = p._id || p.id || p.slug || p.name;
+
+          card.dataset.id = id;
+          card.dataset.name = p.name;
+          card.dataset.price = p.price;
+          card.dataset.image = "/images/" + p.imageFilename;
+
+      
+          const img = document.createElement("img");
+          img.className = "product-image";
+          img.src = "/images/" + p.imageFilename;
+          img.alt = p.name;
+
+      
+          const culture = document.createElement("p");
+          culture.className = "card-culture";
+          culture.textContent = p.culture || "Bengal, India";
+
+        
+          const name = document.createElement("h3");
+          name.textContent = p.name;
+
+          
+          const desc = document.createElement("p");
+          desc.className = "card-description";
+          desc.textContent = p.desc || p.description || "";
+
+        
+          const price = document.createElement("p");
+          price.className = "card-price";
+          price.textContent = "$" + p.price;
+
+         
+          const actions = document.createElement("div");
+          actions.className = "collection-actions";
+
+          const addBtn = document.createElement("button");
+          addBtn.type = "button";
+          addBtn.className = "primary-button add-to-cart-btn";
+          addBtn.textContent = "Add to Cart";
+
+          
+          addBtn.addEventListener("click", () => {
+            const item = {
+              id: card.dataset.id,
+              name: card.dataset.name,
+              price: parseFloat(card.dataset.price),
+              image: card.dataset.image,
+            };
+
+            if (!item.id || isNaN(item.price)) {
+              console.error("Missing id/price on product card", card);
+              alert("Sorry, something went wrong adding this item to your cart.");
+              return;
+            }
+
+            addToCart(item);
+          });
+
+          actions.appendChild(addBtn);
+
+          // Build card
+          card.appendChild(img);
+          card.appendChild(culture);
+          card.appendChild(name);
+          card.appendChild(desc);
+          card.appendChild(price);
+          card.appendChild(actions);
+
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Error loading Clay Tales products:", err);
+        const grid = document.getElementById("products-grid");
+        grid.innerHTML =
+          "<p>Sorry, we couldn’t load the Clay Tales collection right now.</p>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadProducts);
+  </script>
+</body>
+</html>
