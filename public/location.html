@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CultureCraft · Our Location</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Leaflet CSS (free map library using OpenStreetMap) -->
+   <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+  </head>
+  <body>
+    <div class="app-root">
+      <!-- Top navigation using your existing nav styles -->
+      <nav>
+        <div class="container">
+          <div class="logo">CultureCraft</div>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="artists.html">Meet the Artists</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="location.html">Visit</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <main class="app-main">
+        <div class="map-page">
+          <!-- Intro / hero -->
+          <section class="map-hero">
+            <p class="map-tag">Visit CultureCraft</p>
+            <h1>Where to find us</h1>
+            <p class="map-intro">
+              This page shows how CultureCraft could share a physical gallery or
+              studio location. Click the address below and we’ll use a free maps
+              API to look it up and display it on an interactive map.
+            </p>
+          </section>
+
+          <!-- Address + map layout -->
+          <section class="map-section">
+            <div class="map-info">
+              <h2>Our gallery address</h2>
+
+              <!-- CLICKABLE ADDRESS -->
+              <button id="address-link" class="address-link">
+                Tufts University, Medford, MA 02155, USA
+              </button>
+
+              <p class="small-note">
+                Click the address to load it on the map.
+              </p>
+
+              <p class="map-address-label">Selected location</p>
+              <p id="map-address" class="map-address-value">
+                No location selected yet.
+              </p>
+            </div>
+
+            <div class="map-card">
+              <div id="map" class="map-container"></div>
+              <p id="map-status" class="small-note map-status">
+                Click the address to show it on the map.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        <p>© 2025 CultureCraft Marketplace · Celebrating culture through art.</p>
+      </footer>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+    <script>
+      const addressButton = document.getElementById("address-link");
+      const addressDisplay = document.getElementById("map-address");
+      const statusEl = document.getElementById("map-status");
+
+      // Take the text directly from the button so you can change it in HTML only
+      function getAddress() {
+        return addressButton.textContent.trim();
+      }
+
+      // Initialize a base map (world view)
+      const map = L.map("map").setView([20, 0], 2);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(map);
+
+      let marker = null;
+
+      addressButton.addEventListener("click", function () {
+        const address = getAddress();
+
+        if (!address) {
+          statusEl.textContent = "No address specified.";
+          return;
+        }
+
+        addressDisplay.textContent = address;
+        statusEl.textContent = "Looking up that address…";
+
+        const geocodeUrl =
+          "https://nominatim.openstreetmap.org/search?format=json&q=" +
+          encodeURIComponent(address);
+
+        fetch(geocodeUrl, {
+          headers: {
+            "Accept-Language": "en",
+          },
+        })
+          .then((response) => response.json())
+          .then((results) => {
+            if (!results || results.length === 0) {
+              statusEl.textContent =
+                "Could not find that address on the map. Try a more specific address.";
+              return;
+            }
+
+            const { lat, lon, display_name } = results[0];
+
+            // Center the map on the result
+            map.setView([lat, lon], 15);
+
+            // Remove previous marker
+            if (marker) {
+              map.removeLayer(marker);
+            }
+
+            // Add new marker
+            marker = L.marker([lat, lon]).addTo(map);
+            marker.bindPopup(display_name || address).openPopup();
+
+            statusEl.textContent =
+              "Location loaded using a free OpenStreetMap geocoding service.";
+          })
+          .catch((err) => {
+            console.error("Map error:", err);
+            statusEl.textContent =
+              "There was a problem loading the map. Please try again later.";
+          });
+      });
+    </script>
+  </body>
+</html>
