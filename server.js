@@ -5,8 +5,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//const connStr = "mongodb+srv://sammysekyere:cs20123@cluster0.tgnobxn.mongodb.net/?appName=Cluster0";
-const connStr = process.env.MONGODB_URI || "mongodb+srv://ronjanmian:Password1@cluster0.ch6vfzt.mongodb.net/?appName=Cluster0";
+const connStr =process.env.MONGODB_URI || "mongodb+srv://sammysekyere:cs20123@cluster0.tgnobxn.mongodb.net/?appName=Cluster0";
+//const connStr = process.env.MONGODB_URI || "mongodb+srv://ronjanmian:Password1@cluster0.ch6vfzt.mongodb.net/?appName=Cluster0";
 //const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
