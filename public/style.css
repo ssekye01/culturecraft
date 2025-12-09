@@ -1682,6 +1682,134 @@ Samuel's css
      flex-direction: column;
      gap: 0.75rem;
    }
+
+   /* =========================
+   Location / Map page
+   ========================= */
+
+.map-page {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.map-hero {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.map-tag {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background-color: #ab6e56;
+  color: #f7f2ef;
+  margin-bottom: 0.8rem;
+}
+
+.map-hero h1 {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: #2b1c1c;
+}
+
+.map-intro {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #4b5563;
+  line-height: 1.7;
+  font-size: 0.96rem;
+}
+
+/* Layout for text + map */
+.map-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.map-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+  color: #2b1c1c;
+}
+
+/* Clickable address */
+.address-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #ab6e56;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0.4rem;
+  transition: background-color 0.15s ease, transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.address-link:hover {
+  background-color: #8f5741;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.map-address-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b7280;
+  margin-top: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.map-address-value {
+  font-weight: 600;
+  color: #2f1b1b;
+  margin-bottom: 0.75rem;
+}
+
+/* Map card */
+.map-card {
+  background-color: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.map-container {
+  width: 100%;
+  height: 320px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.map-status {
+  margin-top: 0.6rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .map-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .map-hero h1 {
+    font-size: 1.9rem;
+  }
+}
+
    
    /* =========================
       Responsive tweaks
