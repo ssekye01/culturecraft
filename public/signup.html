@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Become an Artist | CultureCraft</title>
+
+  <!-- Your main site styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Top navigation (reuses your nav styles) -->
+  <nav>
+    <div class="container">
+      <div class="logo">CultureCraft</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="artists.html">Meet the Artists</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="signup.html">Become an Artist</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="app-root">
+    <main class="app-main">
+      <div class="auth-page">
+        <div class="auth-shell">
+          <!-- Left side: story/lead-in -->
+          <aside class="auth-intro">
+            <div class="auth-brand">
+              <div class="auth-logo-circle">CC</div>
+              <div class="auth-brand-text">
+                <h1>CultureCraft</h1>
+                <p>Marketplace for culture-rooted craft.</p>
+              </div>
+            </div>
+
+            <h2>Share the story behind your craft, not just the object.</h2>
+
+            <p class="auth-intro-text">
+              This form is for artists and makers who want to be featured on CultureCraft.
+              When you sign up as an artist, you get a dedicated profile and tools to
+              describe your materials, process, and the cultural roots of your work.
+            </p>
+
+            <ul class="auth-benefits">
+              <li>
+                <strong>Create an artist profile</strong> that highlights your background,
+                influences, and the traditions you draw from.
+              </li>
+              <li>
+                <strong>Upload pieces</strong> with detailed descriptions of materials,
+                techniques, and the stories behind them.
+              </li>
+              <li>
+                <strong>Organize your work</strong> into collections by culture, region,
+                or theme so visitors can experience it in context.
+              </li>
+            </ul>
+
+           
+          </aside>
+
+          <!-- Right side: artist signup + (hidden) dashboard -->
+          <section class="auth-panel">
+            <!-- Artist Sign Up Form -->
+            <div id="signupForm" class="form-container">
+              <h2>Apply as a CultureCraft Artist</h2>
+              <p class="subtitle">
+                Tell us who you are so we can build your artist profile.
+              </p>
+
+              <div class="highlight-box">
+                <p>
+                  We’ll use the details below to create your artist card and connect your
+                  future product uploads back to your story, culture, and practice.
+                </p>
+              </div>
+
+              <div class="divider">
+                <span>Artist details</span>
+              </div>
+
+              <form class="auth-form">
+                <div class="input-group">
+                  <label for="signupName">Artist / Creator Name</label>
+                  <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Name as you'd like it displayed"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="signupEmail">Contact Email</label>
+                  <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Where interested buyers could reach you"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="artistLocation">Where are you based? (City, Country)</label>
+                  <input
+                    type="text"
+                    id="artistLocation"
+                    placeholder="e.g., Accra, Ghana"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="artistFocus">
+                    What type of work do you mainly create?
+                  </label>
+                  <input
+                    type="text"
+                    id="artistFocus"
+                    placeholder="e.g., hand-built ceramics, woven textiles, beadwork"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="signupPassword">Create a password</label>
+                  <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Choose a secure password"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="signupConfirmPassword">Confirm password</label>
+                  <input
+                    type="password"
+                    id="signupConfirmPassword"
+                    placeholder="Re-enter your password"
+                    required
+                  />
+                </div>
+
+                <label class="terms">
+                  <input type="checkbox" required />
+                  <span>
+                    I understand this is a prototype and agree to the
+                    <a href="#">Terms of Service</a>
+                    and
+                    <a href="#">Privacy Policy</a>.
+                  </span>
+                </label>
+
+                <button type="submit" class="submit-btn">
+                  Become a CultureCraft Artist
+                </button>
+              </form>
+
+              <p class="switch-form">
+                Just here to browse?
+                <a href="shop.html">Go to the shop instead</a>
+              </p>
+
+              <p class="switch-form" style="margin-top: 0.3rem;">
+                Already set up as an artist?
+                <a href="signin.html">Sign in to your dashboard</a>
+              </p>
+            </div>
+
+            <!-- User Dashboard (after login) - hidden by default -->
+            <div id="userDashboard" class="form-container" style="display: none;">
+              <div class="user-profile-mini">
+                <img
+                  id="userPhoto"
+                  src="https://via.placeholder.com/100?text=U"
+                  alt="Profile"
+                />
+                <div class="user-info">
+                  <h3 id="userName">Welcome, Artist!</h3>
+                  <p id="userEmail"></p>
+                </div>
+                <button type="button" id="logoutBtn" class="logout-mini">
+                  Sign Out
+                </button>
+              </div>
+
+              <div class="product-upload-section">
+                <h2>Upload a New Piece</h2>
+                <p class="subtitle">
+                  Add a work that reflects your culture, techniques, or traditions.
+                </p>
+
+                <form id="productUploadForm" class="product-form">
+                  <!-- Product Image Upload -->
+                  <div class="image-upload-section">
+                    <label class="image-upload-label">
+                      <input
+                        type="file"
+                        id="productImage"
+                        accept="image/*"
+                        required
+                      />
+                      <div class="image-preview" id="imagePreview">
+                        <svg
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                          <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <p>Click to upload a photo of your piece</p>
+                        <span>PNG, JPG up to 5MB</span>
+                      </div>
+                      <img id="previewImg" alt="Preview" style="display: none;" />
+                    </label>
+                  </div>
+
+                  <!-- Product Name -->
+                  <div class="input-group">
+                    <label for="productName">Title of the piece *</label>
+                    <input
+                      type="text"
+                      id="productName"
+                      placeholder="e.g., Boat Procession Panel"
+                      required
+                    />
+                  </div>
+
+                  <!-- Product Description -->
+                  <div class="input-group">
+                    <label for="productDesc">Story & description *</label>
+                    <textarea
+                      id="productDesc"
+                      rows="4"
+                      placeholder="What does this piece represent? Which culture, tradition, or memory does it carry?"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <!-- Materials (Multi-input) -->
+                  <div class="input-group">
+                    <label>Materials used *</label>
+                    <div class="materials-container">
+                      <div class="material-input-group">
+                        <input
+                          type="text"
+                          class="material-input"
+                          placeholder="e.g., terracotta clay, natural pigments"
+                        />
+                        <button type="button" class="add-material-btn">+</button>
+                      </div>
+                      <div id="materialsList"></div>
+                    </div>
+                  </div>
+
+                  <!-- Price -->
+                  <div class="input-group">
+                    <label for="productPrice">Price (USD) *</label>
+                    <div class="price-input-wrapper">
+                      <span class="currency-symbol">$</span>
+                      <input
+                        type="number"
+                        id="productPrice"
+                        placeholder="0.00"
+                        step="0.01"
+                        min="0.01"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Category (Optional) -->
+                  <div class="input-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory">
+                      <option value="">Select a category</option>
+                      <option value="pottery">Pottery</option>
+                      <option value="sculpture">Sculpture</option>
+                      <option value="panel">Panel</option>
+                      <option value="decorative">Decorative</option>
+                      <option value="functional">Functional</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <!-- Stock Quantity -->
+                  <div class="input-group">
+                    <label for="productStock">Stock quantity</label>
+                    <input
+                      type="number"
+                      id="productStock"
+                      placeholder="1"
+                      min="0"
+                      value="1"
+                    />
+                  </div>
+
+                  <!-- Submit Buttons -->
+                  <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                      <span>📤</span>
+                      Publish Piece
+                    </button>
+                    <a
+                      href="index.html"
+                      class="submit-btn secondary-btn"
+                      style="
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    >
+                      <span>🏠</span>
+                      Back Home
+                    </a>
+                  </div>
+                </form>
+
+                <!-- Upload Success Message -->
+                <div
+                  id="uploadSuccess"
+                  class="success-message"
+                  style="display: none;"
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                    ></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  <p>Your piece has been added to your artist dashboard.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      © 2025 CultureCraft Marketplace · Celebrating culture through art.
+    </footer>
+  </div>
+</body>
+</html>
