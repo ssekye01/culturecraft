@@ -4,8 +4,9 @@ const express = require('express');
 
 const app = express();
 
-const connStr = "mongodb+srv://sammysekyere:cs20123@cluster0.tgnobxn.mongodb.net/?appName=Cluster0";
-const PORT = process.env.PORT || 3000;
+//const connStr = "mongodb+srv://sammysekyere:cs20123@cluster0.tgnobxn.mongodb.net/?appName=Cluster0";
+const connStr = process.env.MONGODB_URI || "mongodb+srv://ronjanmian:Password1@cluster0.ch6vfzt.mongodb.net/?appName=Cluster0";
+//const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
@@ -122,7 +123,7 @@ async function startServer() {
     // app.listen(3000, function () {
     //   console.log("Server running at http://localhost:3000");
     // });
-     app.listen(PORT, function () {
+     app.listen(3000, function () {
       console.log("Server running at http://localhost:3000");
     });
 
@@ -134,3 +135,64 @@ async function startServer() {
 startServer();
 
 
+// server.js
+// Express + MongoDB + static hosting for CultureCraft
+
+// const express = require("express");
+// const path = require("path");
+// const { MongoClient, ServerApiVersion } = require("mongodb");
+
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+
+// // 1. Your Atlas URI (update username, password, DB name)
+// const uri =
+//  "mongodb+srv://ronjanhusainmian_db_user:ronjanmian11@cluster0.tgnobxn.mongodb.net/?appName=Cluster0";
+
+
+// // 2. Create Mongo client with serverApi options (Atlas likes this)
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   },
+// });
+
+// let db;
+
+// async function startServer() {
+//   try {
+//     // 3. Connect to MongoDB Atlas
+//     await client.connect();
+//     console.log("✅ Connected to MongoDB Atlas");
+
+//     // 4. Select your database
+//     db = client.db("YOUR_DB"); // must match the DB in the URI
+
+//     // 5. Serve static files from /public
+//     app.use(express.static(path.join(__dirname, "public")));
+
+//     // 6. Simple test route to prove Mongo is working
+//     app.get("/products/example", async (req, res) => {
+//       try {
+//         const coll = db.collection("YOUR_COLLECTION_NAME"); // use a real collection name
+//         const docs = await coll.find({}).limit(5).toArray();
+//         res.json(docs);
+//       } catch (err) {
+//         console.error("Error in /products/example:", err);
+//         res.status(500).json({ error: "Internal server error" });
+//       }
+//     });
+
+//     // 7. Start the web server
+//     app.listen(PORT, () => {
+//       console.log(`🚀 Server running at http://localhost:${PORT}`);
+//     });
+//   } catch (err) {
+//     console.error("❌ Failed to connect to MongoDB:", err);
+//     process.exit(1);
+//   }
+// }
+
+// startServer();
